@@ -8,9 +8,14 @@ SECRET_KEY = (
     "django-insecure-j_89af+30&&4qm*8z9_(^zz8p4-ho8z_m6ylm0s$h!-p@on1_^"
 )
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["localhost", "123.123.123.123", "<your_domain>"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "158.160.243.162",
+    "tickread1234.viewdns.net",
+]
 
 
 # Application definition
