@@ -1,4 +1,4 @@
-name: Main Taski workflow
+name: Taski main workflow
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-  # Джоба тестирования бэкенда (нужна, так как сборка от нее зависит)
   tests:
     runs-on: ubuntu-latest
     steps:
@@ -134,7 +133,7 @@ jobs:
             sudo docker compose -f docker-compose.production.yml down
             sudo docker compose -f docker-compose.production.yml up -d
             sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
-            sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic --noinput
+            sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
             sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/
 
   send_message:
@@ -146,8 +145,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-          Деплой Taski успешно выполнен!
-          Пользователь: ${{ github.actor }}
-          Сообщение коммита: ${{ github.event.commits[0].message }}
-          Ссылка на коммит: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+        message: Деплой успешно выполнен!
